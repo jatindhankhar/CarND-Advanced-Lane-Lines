@@ -60,9 +60,9 @@ def pipeline(image, lanes):
     # https://carnd-forums.udacity.com/questions/32706990/want-to-create-a-diagnostic-view-into-your-lane-finding-pipeline
     font = cv2.FONT_HERSHEY_COMPLEX
     middlepanel = np.zeros((120, 1280, 3), dtype=np.uint8)
-    lanes.curvatures()
     cv2.putText(middlepanel, "Average lane curvature: {:8.2f} m".format(
         np.average(lanes.curvature())), (30, 60), font, 1, (0, 255, 0), 2)
+	result = cv2.addWeighted(undist, 1, newwarp, 0.3, 0)
     offset_from_center = (result.shape[
                           1] / 2 - (lanes.left_lane.best_fit[-1] + lanes.right_lane.best_fit[-1]) / 2) * 3.7 / 700
     offset_from_center_text = "offset from center of the line: {:2.5f}m".format(
