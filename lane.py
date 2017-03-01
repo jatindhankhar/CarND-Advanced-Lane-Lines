@@ -92,21 +92,20 @@ class Lanes():
             nonzero = binary_warped.nonzero()
             nonzeroy = np.array(nonzero[0])
             nonzerox = np.array(nonzero[1])
-            # Current positions to be updated for each window
+        
             leftx_current = leftx_base
             rightx_current = rightx_base
-            # Set the width of the windows +/- margin
+
             margin = 100
-            # Set minimum number of pixels found to recenter window
+
             minpix = 50
-            # Create empty lists to receive left and right lane pixel indices
+
             left_lane_inds = []
             right_lane_inds = []
 
-            # Step through the windows one by one
+
             for window in range(nwindows):
-                    # Identify window boundaries in x and y (and right and
-                    # left)
+
                 win_y_low = binary_warped.shape[
                     0] - (window + 1) * window_height
                 win_y_high = binary_warped.shape[0] - window * window_height

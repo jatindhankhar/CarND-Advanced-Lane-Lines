@@ -13,7 +13,7 @@ def draw_lane_line(warped, undist, lanes):
     warp_zero = np.zeros_like(warped).astype(np.uint8)
     color_warp = np.dstack((warp_zero, warp_zero, warp_zero))
 
-    # Recast the x and y points into usable format for cv2.fillPoly()
+
     pts_left = np.array(
         [np.transpose(np.vstack([lanes.left_lane.best_fit, lanes.ploty]))])
     pts_right = np.array(
@@ -62,13 +62,6 @@ def pipeline(image, lanes):
     middlepanel = np.zeros((120, 1280, 3), dtype=np.uint8)
     cv2.putText(middlepanel, "Average lane curvature: {:8.2f} m".format(
         np.average(lanes.curvature())), (30, 60), font, 1, (0, 255, 0), 2)
-	result = cv2.addWeighted(undist, 1, newwarp, 0.3, 0)
-    offset_from_center = (result.shape[
-                          1] / 2 - (lanes.left_lane.best_fit[-1] + lanes.right_lane.best_fit[-1]) / 2) * 3.7 / 700
-    offset_from_center_text = "offset from center of the line: {:2.5f}m".format(
-        offset_from_center)
-    cv2.putText(middlepanel, offset_from_center_text,
-                (30, 90), font, 1, (0, 255, 0), 2)
     diagScreen = np.zeros((1080, 1920, 3), dtype=np.uint8)
     diagScreen[0:720, 0:1280] = processed
     diagScreen[0:240, 1280:1600] = cv2.resize(
